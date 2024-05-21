@@ -1,12 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
 import { Outlet } from 'react-router-dom';
-import toast, { Toaster } from 'react-hot-toast';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   return (
    <>
-   <Toaster/>
+  <ToastContainer />
      <main >
         <Outlet/>
        </main>

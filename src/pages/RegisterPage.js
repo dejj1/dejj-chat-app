@@ -3,7 +3,8 @@ import {IoClose} from "react-icons/io5"
 import { Link } from 'react-router-dom'
 import uploadFile from '../helpers/uploadFile'
 import axios from 'axios'
-import toast from 'react-hot-toast'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const RegisterPage = () => {
     const [data, setData] = useState({
@@ -48,7 +49,12 @@ const RegisterPage = () => {
         const URL = `${process.env.REACT_APP_BACKEND_URL}/api/register`
         try {
             const response = await axios.post(URL, data)
-            toast.success(response.data.message)
+            console.log(response)
+            if (response.data && response.data.message) {
+                toast.success(response.data.message);
+              } else {
+                toast.error('No message in response');
+              }
         } catch (error) {
             toast.error(error?.response?.data?.message)
             
