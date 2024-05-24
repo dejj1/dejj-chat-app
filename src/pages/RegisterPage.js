@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {IoClose} from "react-icons/io5"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import uploadFile from '../helpers/uploadFile'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
@@ -14,6 +14,7 @@ const RegisterPage = () => {
         profile_pic: ""
     })
     const [uploadPhoto, setUploadPhoto] = useState("")
+    const navigate = useNavigate()
     const handleOnChange = (e) => {
         const {name, value} = e.target
 
@@ -54,6 +55,15 @@ const RegisterPage = () => {
                 toast.success(response.data.message);
               } else {
                 toast.error('No message in response');
+              }
+              if(response.data.success){
+                setData({
+                    name: "",
+                    email: "",
+                    password: "",
+                    profile_pic: ""
+                })
+                navigate("/email")
               }
         } catch (error) {
             toast.error(error?.response?.data?.message)
