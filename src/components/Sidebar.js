@@ -9,7 +9,7 @@ import EditUserDetails from "./EditUserDetails";
 
 const Sidebar = () => {
   const user = useSelector((state) => state?.user);
-  const [editUserOpen, setEditUserOpen] = useState(false)
+  const [editUserOpen, setEditUserOpen] = useState(false);
   return (
     <div className="w-full h-full">
       <div className="bg-slate-100 w-12 h-full rounded-tr-lg rounded-br-lg py-5 text-slate-600 flex flex-col justify-between">
@@ -32,7 +32,11 @@ const Sidebar = () => {
           </div>
         </div>
         <div className="flex flex-col items-center">
-          <button className="mx-auto" title={user?.name} onClick={()=>setEditUserOpen(true)}>
+          <button
+            className="mx-auto"
+            title={user?.name}
+            onClick={() => setEditUserOpen(true)}
+          >
             <Avatar width={40} height={40} name={user?.name} />
           </button>
           <button
@@ -47,11 +51,9 @@ const Sidebar = () => {
       </div>
 
       {/* edit user details */}
-      {
-        editUserOpen && (
-            <EditUserDetails onClose={()=>setEditUserOpen(false)} user={user}/>
-        )
-      }
+      {editUserOpen && (
+        <EditUserDetails onClose={() => setEditUserOpen(false)} user={user} />
+      )}
     </div>
   );
 };
