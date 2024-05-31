@@ -10,7 +10,8 @@ const UserCard = ({user, onClose}) => {
             width={50}
             height={50}
             name={user?.name}
-            userId={user?._id}/>
+            userId={user?._id}
+            imageUrl={user?.profile_pic}/>
         </div>
         <div>
             <div className='font-semibold text-ellipsis line-clamp-1'>
