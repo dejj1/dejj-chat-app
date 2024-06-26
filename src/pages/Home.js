@@ -56,7 +56,7 @@ const Home = () => {
     return () => {
       socketConnection.disconnect();
     };
-  }, []);
+  }, [dispatch]);
 
   const basePath = location.pathname === "/";
   return (
