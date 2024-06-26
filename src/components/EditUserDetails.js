@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from 'react-redux';
 import {setUser} from "../redux/userSlice"
+import { FaTrashAlt } from "react-icons/fa";
 
 const EditUserDetails = ({onClose, user}) => {
     const [data,setData] = useState({
@@ -43,16 +44,16 @@ const EditUserDetails = ({onClose, user}) => {
         uploadPhotoRef.current.click()
     }
 
-    const handleUploadPhoto = async (e)=>{
+    const handleUploadPhoto = async(e)=>{
         const file = e.target.files[0]
 
         const uploadPhoto = await uploadFile(file)
 
         setData((preve)=>{
-            return{
-                ...preve,
-                profile_pic: uploadPhoto?.url
-            }
+        return{
+            ...preve,
+            profile_pic : uploadPhoto?.url
+        }
         })
     }
 
@@ -61,20 +62,25 @@ const EditUserDetails = ({onClose, user}) => {
         e.stopPropagation()
         try {
             const URL = `${process.env.REACT_APP_BACKEND_URL}/api/update-user`
-            const response = await axios({
-                method: 'post',
-                url: URL,
-                data: data,
-                withCredentials: true
-            })
-            toast.success(response?.data?.message)
 
+            const response = await axios({
+                method : 'post',
+                url : URL,
+                data : data,
+                withCredentials : true
+            })
+
+            console.log('response',response)
+            toast.success(response?.data?.message)
+            
             if(response.data.success){
                 dispatch(setUser(response.data.data))
                 onClose()
             }
+         
         } catch (error) {
-            toast.error(error?.response?.data?.message)
+            console.log(error)
+            toast.error(error)
         }
     }
   return (
@@ -120,6 +126,7 @@ const EditUserDetails = ({onClose, user}) => {
 
                 <Divider/>
                 <div className='flex gap-2 w-fit ml-auto'>
+                    {/* <button onClick={handleDelete} className='border border-primary text-primary px-4 py-1 rounded'><FaTrashAlt/></button> */}
                     <button onClick={onClose} className='border-primary border text-primary px-4 py-1 rounded hover:bg-primary hover:text-white'>Cancel</button>
                     <button onClick={handleSubmit} className='border-primary bg-primary text-white border px-4 py-1 rounded hover:bg-secondary'>Save</button>
                 </div>
